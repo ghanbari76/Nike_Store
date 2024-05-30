@@ -1,11 +1,13 @@
 import React from 'react'
 import { StarIcon, ShoppingBagIcon } from '@heroicons/react/24/solid'
 
-const Item = ({ id, color, shadow, title, text, img, btn, rating, price }) => {
+const Item = ({ ifExist, id, color, shadow, title, text, img, btn, rating, price }) => {
   return (
     <>
-    <div className={`relative bg-gradient-to-b ${color} ${shadow} grid items-center justify-items-center rounded-xl py-4 px-5 s-all duration-700 ease-in-out w-full hover:scale-105`}>
-        <div className='grid items-center justify-items-center'>
+    <div className={`relative bg-gradient-to-b ${color} ${shadow} grid items-center
+            ${ifExist ? 'justify-items-start' : 'justify-items-center'}
+            rounded-xl py-4 px-5 s-all duration-700 ease-in-out w-full hover:scale-105`}>
+        <div className={`grid items-center ${ifExist ? 'justify-items-start' : 'justify-items-center'}`}>
             <h1 className='text-slate-200 text-xl lg:text-lg md:text-base font-medium filter drop-shadow'>{title}</h1>
             <p className='text-slate-200 filter drop-shadow text-base md:text-sm font-normal'>{text}</p>
             <div className='flex items-center justify-between w-28 my-2'>
@@ -33,11 +35,11 @@ const Item = ({ id, color, shadow, title, text, img, btn, rating, price }) => {
                 >{btn}</button>
             </div>
         </div>
-        <div className='flex items-center'>
+    <div className={`flex items-center ${ifExist ? 'absolute top-5 right-1' : 'justify-center'}`}>
             <img 
                 src={img}
-                alt='img/item-img'
-                className='w-64 h-36 transitions-theme hover:-rotate-12'
+                alt={`img/item-img/${id}`}
+                className={`transitions-theme hover:-rotate-12 ${ifExist ? 'h-auto w-64 lg:w-56 md:w-48 -rotate-[35deg]' : 'w-64 h-36 '}`}
             />
         </div>
     </div>
