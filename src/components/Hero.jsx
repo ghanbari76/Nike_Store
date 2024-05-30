@@ -35,11 +35,11 @@ const Hero = ({ heroapi: {title, subtitle,
                         ))}
                     </div>
                 </div>
-                <div className=''>
+                <div className='flex items-center'>
                     <img 
                         src={img}
                         alt='hero-img/img'
-                        className='w-auto h-[45xh] lg:h-[35vh] md:h-[31vh] sm:h-[21vh] xsm:h-[19vh] transitions-theme -rotate-[25deg] hover:rotate-0 cursor-pointer object-fill'
+                        className='w-auto h-[45vh] sm:w-[65vw] xl:w-[75vw] lg:h-[35vh] md:h-[31vh] sm:h-[21vh] xsm:h-[19vh] transitions-theme -rotate-[25deg] hover:rotate-0 cursor-pointer object-fill'
                     />
                 </div>
             </div>
