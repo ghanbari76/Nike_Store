@@ -1,9 +1,24 @@
 import React from "react";
 import { MinusIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { useDispatch } from "react-redux";
+import { setDecreaseItemQTY, setIncreaseItemQTY, setRemoveItemFromCart } from "../../app/CartSlice.js";
 
 const CartItem = ({
   item: { id, color, shadow, title, text, img, price, cartQuantity },
 }) => {
+  const dispatch = useDispatch();
+  
+  const item = { id, color, shadow, title, text, img, price, cartQuantity };
+  const onRemoveItem = () => {
+    dispatch(setRemoveItemFromCart(item));
+  };
+  const onIncreaseItemQTY = () => {
+    dispatch(setIncreaseItemQTY(item))
+  }
+  const onDecreaseItemQTY = () => {
+    dispatch(setDecreaseItemQTY(item))
+  }
+
   return (
     <>
       <div className="flex items-center justify-between w-full px-5">
@@ -26,7 +41,7 @@ const CartItem = ({
               <p className="text-sm text-slate-800 lg:text-xs">{text}</p>
             </div>
             <div className="flex items-center justify-around w-full">
-              <button
+              <button onClick={onDecreaseItemQTY}
                 type="button"
                 className="bg-theme-cart rounded w-6 h-6 lg:w-5 lg:h-5 flex items-center justify-center active:scale-90"
               >
@@ -35,7 +50,7 @@ const CartItem = ({
               <div className="bg-theme-cart rounded text-white font-medium lg:text-xs w-7 h-6 lg:h-5 lg:w-6 flex items-center justify-center">
                 {cartQuantity}
               </div>
-              <button
+              <button onClick={onIncreaseItemQTY}
                 type="button"
                 className="bg-theme-cart rounded w-6 h-6 lg:w-5 lg:h-5 flex items-center justify-center active:scale-90"
               >
@@ -50,8 +65,11 @@ const CartItem = ({
               ${price * cartQuantity}
             </h1>
           </div>
-          <div className="grid items-center justify-center">
-            <button type="button" className="bg-theme-cart rounded p-1 lg:p-0.5 grid items-center justify-items-center">
+          <div className="grid items-center justify-center cursor-pointer">
+            <button onClick={onRemoveItem}
+              type="button"
+              className="bg-theme-cart rounded p-1 lg:p-0.5 grid items-center justify-items-center"
+            >
               <TrashIcon type="button" className="w-5 h-5 text-white" />
             </button>
           </div>
