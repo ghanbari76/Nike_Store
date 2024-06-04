@@ -53,7 +53,13 @@ const CartItem = ({
                 type="button"
                 className="bg-theme-cart rounded w-6 h-6 lg:w-5 lg:h-5 flex items-center justify-center active:scale-90"
               >
-                <MinusIcon className="w-5 h-5 lg:w-4 lg:h-4 text-white stroke-[2]" />
+                <MinusIcon
+                  className={`${
+                    cartQuantity <= 1
+                      ? "bg-white/70 text-white rounded"
+                      : "w-5 h-5 lg:w-4 lg:h-4 text-white stroke-[2]"
+                  }`}
+                />
               </button>
               <div className="bg-theme-cart rounded text-white font-medium lg:text-xs w-7 h-6 lg:h-5 lg:w-6 flex items-center justify-center">
                 {cartQuantity}
