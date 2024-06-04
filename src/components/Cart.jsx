@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CartCount from "./cart/CartCount";
 import CartEmpty from "./cart/CartEmpty";
@@ -6,14 +6,23 @@ import CartItem from "./cart/CartItem";
 import {
   selectCartItems,
   selectCartState,
+  selectTotalAmount,
+  selectTotalQTY,
   setClearCartItems,
   setCloseCart,
+  setGetTotals,
 } from "../app/CartSlice";
 
 const Cart = () => {
   const dispatch = useDispatch();
   const ifCartState = useSelector(selectCartState);
   const cartItems = useSelector(selectCartItems);
+  const totalAmount = useSelector(selectTotalAmount);
+  const totalQTY = useSelector(selectTotalQTY);
+
+  useEffect(() => {
+    dispatch(setGetTotals());
+  }, [cartItems]);
 
   const onCartToggle = () => {
     dispatch(
@@ -26,6 +35,9 @@ const Cart = () => {
   const onClearCartItems = () => {
     dispatch(setClearCartItems());
   };
+
+  // console.log(cartItems)
+
   return (
     <>
       <div
@@ -44,27 +56,28 @@ const Cart = () => {
           <CartCount
             onCartToggle={onCartToggle}
             onClearCartItems={onClearCartItems}
+            totalQTY={totalQTY}
           />
           {!cartItems.length ? (
-            <CartEmpty onCartToggle={onCartToggle}/>
+            <CartEmpty onCartToggle={onCartToggle} />
           ) : (
             <div>
-              <div className="flex flex-col items-start justify-start gap-y-7 lg:gap-y-5 overflow-y-scroll h-[81vh] scroll-smooth scroll-hidden py-3">
+              <div
+                className="flex flex-col items-start justify-start gap-y-7 lg:gap-y-5 
+                overflow-y-scroll h-[81vh] scroll-smooth scroll-hidden pt-3 pb-9"
+              >
                 {cartItems.map((item, i) => (
                   <CartItem item={item} key={i} />
                 ))}
               </div>
 
-              <div
-                className="fixed bottom-0 bg-white w-full
-               px-5 py-2 grid items-center"
-              >
+              <div className="fixed bottom-0 bg-white w-full px-5 py-2 grid items-center">
                 <div className="flex items-center justify-between my-2">
                   <h1 className="text-base font-semibold uppercase">
                     total payment
                   </h1>
                   <h1 className="text-sm rounded bg-theme-cart text-slate-100 px-1 py-0.5">
-                    000
+                    ${totalAmount}
                   </h1>
                 </div>
                 <div className="grid items-center gap-2">
